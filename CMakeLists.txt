@@ -12,8 +12,6 @@ set(SRCS
         src/fs_match.c
         )
 
-add_library(of_core_fs_android STATIC ${SRCS})
-
-set_target_properties(of_core_fs_android PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(of_core_fs_android PROPERTIES SOVERSION 1)
+add_library(of_core_fs_android OBJECT ${SRCS})
+set_property(TARGET of_core_fs_android PROPERTY POSITION_INDEPENDENT_CODE ON)
 
