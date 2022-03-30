@@ -134,13 +134,13 @@ static OFC_UINT32 TranslateError(OFC_UINT32 file_errno)
   ofc_error = OFC_ERROR_GEN_FAILURE;
   low = 0;
   high = ERRNO2FILE_MAX - 1;
-  cursor = high + low / 2;
+  cursor = (high + low) / 2;
   while (errno2file[cursor].file_errno != file_errno && low <= high) {
     if (file_errno < errno2file[cursor].file_errno)
       high = cursor - 1;
     else
       low = cursor + 1;
-    cursor = high + low / 2;
+    cursor = (high + low) / 2;
   }
   if (errno2file[cursor].file_errno == file_errno)
     ofc_error = errno2file[cursor].ofc_error;
