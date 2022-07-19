@@ -1330,6 +1330,16 @@ OfcFSAndroidGetFileInformationByHandleEx
       }
       break;
 
+    case OfcFileEaInfo:
+      if (dwBufferSize >= sizeof(OFC_FILE_EA_INFO))
+        {
+          OFC_FILE_EA_INFO *lpFileEaInfo =
+            (OFC_FILE_EA_INFO *) lpFileInformation;
+          lpFileEaInfo->EaSize = 0;
+          ret = OFC_TRUE;
+        }
+      break;
+
     case OfcFileEndOfFileInfo:
     case OfcFileRenameInfo:
     case OfcFileDispositionInfo:
