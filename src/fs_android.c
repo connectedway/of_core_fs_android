@@ -1103,7 +1103,7 @@ OfcFSAndroidFindFirstFile(OFC_LPCTSTR lpFileName,
     ofc_free(asciiName);
     if (context->dir == NULL) {
       ofc_thread_set_variable(OfcLastError, 
-			      (OFC_DWORD_PTR) TranslateError(errno)) ;
+                              (OFC_DWORD_PTR) TranslateError(errno)) ;
     }
     else {
       context->nextRet =
@@ -1111,8 +1111,11 @@ OfcFSAndroidFindFirstFile(OFC_LPCTSTR lpFileName,
 		  &dirent) ;
 
       if (dirent == NULL) {
-	ofc_thread_set_variable (OfcLastError, 
-				 (OFC_DWORD_PTR) TranslateError(errno)) ;
+        if (errno == 0)
+          ofc_thread_set_variable(OfcLastError, OFC_ERROR_NO_MORE_FILES);
+        else
+          ofc_thread_set_variable (OfcLastError, 
+                                   (OFC_DWORD_PTR) TranslateError(errno)) ;
 	closedir(context->dir);
 	context->dir = NULL;
       } else {
